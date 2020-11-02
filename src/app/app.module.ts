@@ -8,6 +8,8 @@ import { SideBarComponent } from './components/navigation/side-bar/side-bar.comp
 import { ClientsTableComponent } from './components/clients-table/clients-table.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { UserSettingsComponent } from './components/user-settings/user-settings.component';
+import icons from '../assets/svg/svg-icons';
+import { SvgIconsModule } from '@ngneat/svg-icon';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,9 @@ import { UserSettingsComponent } from './components/user-settings/user-settings.
   imports: [
     BrowserModule,
     AppRoutingModule,
+    SvgIconsModule.forRoot({
+      icons
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]
