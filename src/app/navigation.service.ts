@@ -12,6 +12,5 @@ export class NavigationService {
 
   toggleSideNav(): void {
     this.hideSideNav = !this.hideSideNav;
-    console.log(this.hideSideNav);
   }
 }
