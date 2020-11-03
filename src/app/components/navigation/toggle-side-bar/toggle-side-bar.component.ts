@@ -12,7 +12,7 @@ export class ToggleSideBarComponent implements OnInit {
   height: any;
 
   // tslint:disable-next-line:max-line-length
-  // This HostListener and function below serves as a media-query to toggle side-nav and side-nav toggler state based on screen size, hiding the side-nav on smaller screens
+  // This HostListener and function below serves as a media-query to toggle side-nav and side-nav toggler state based on screen size, hiding the side-nav on smaller
   @HostListener('window:resize', ['$event'])
   // tslint:disable-next-line:typedef
   onResize(event) {

@@ -7,6 +7,15 @@
 
 .label-text {
   margin-left: 16px;
+  margin-bottom: -5px;
+}
+
+.label-text-checked {
+  color: yellowgreen;
+  text-shadow: 2px 2px 3px rgba(255,255,255,0.5);
+  -webkit-background-clip: text;
+     -moz-background-clip: text;
+          background-clip: text;
 }
 
 .toggle {

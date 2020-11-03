@@ -1,7 +1,7 @@
-
 <label class="label">
   <div class="toggle">
-    <input (click)="logNav()" class="toggle-state" type="checkbox" [(ngModel)]="navActive" />
+    <input id="navToggle" (click)="logNav()" class="toggle-state" type="checkbox" [(ngModel)]="navActive" />
     <div class="indicator"></div>
   </div>
+  <label class="label-text" for="navToggle" [ngClass]="{'label-text-checked': navActive}">MENU</label>
 </label>
