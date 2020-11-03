@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NavigationService {
-  hideSideNav: boolean;
+  hideSideNav = new BehaviorSubject<boolean>(true);
 
-  constructor() {
-    this.hideSideNav = false;
-  }
+  constructor() {}
 
   toggleSideNav(): void {
-    this.hideSideNav = !this.hideSideNav;
+    this.hideSideNav.next(!this.hideSideNav.getValue());
   }
 }

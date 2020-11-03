@@ -10,6 +10,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { UserSettingsComponent } from './components/user-settings/user-settings.component';
 import icons from '../assets/svg/svg-icons';
 import { SvgIconsModule } from '@ngneat/svg-icon';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { SvgIconsModule } from '@ngneat/svg-icon';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     SvgIconsModule.forRoot({
       icons
     }),

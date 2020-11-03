@@ -8,9 +8,15 @@ import { NavigationService } from 'src/app/navigation.service';
 })
 export class SideBarComponent implements OnInit {
 
-  constructor(public navServ: NavigationService) { }
+  navActive: boolean;
+
+  constructor(public navServ: NavigationService) {
+    this.navServ.hideSideNav.subscribe(r => {
+      this.navActive = r;
+    });
+
+  }
 
   ngOnInit(): void {
   }
-
 }
