@@ -11,7 +11,7 @@ export class SideBarComponent implements OnInit {
   navActive: boolean;
 
   constructor(public navServ: NavigationService) {
-    this.navServ.hideSideNav.subscribe(r => {
+    this.navServ.showSideNav.subscribe(r => {
       this.navActive = r;
     });
 

@@ -5,11 +5,11 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class NavigationService {
-  hideSideNav = new BehaviorSubject<boolean>(true);
+  showSideNav = new BehaviorSubject<boolean>(true);
 
   constructor() {}
 
   toggleSideNav(): void {
-    this.hideSideNav.next(!this.hideSideNav.getValue());
+    this.showSideNav.next(!this.showSideNav.getValue());
   }
 }
