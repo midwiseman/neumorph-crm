@@ -1,0 +1,4 @@
+/* Every odd child that is a tr element of tbody gets a gray background */
+tbody > tr:nth-child(odd) {
+  background: transparentize(#2b2b2b, 0.75);
+}
