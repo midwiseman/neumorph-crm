@@ -9,14 +9,23 @@ import { ClientServiceService } from 'src/app/client-service.service';
 export class ClientsTableComponent implements OnInit {
 
   clients: any;
+  pageStart: 1;
+  pagedClients = [];
+  maxItemsPerPage = 20;
 
   constructor(private clientService: ClientServiceService) {
-    this.clientService.clientList$.subscribe(c => {
-      this.clients = c;
-    });
+
   }
 
   ngOnInit(): void {
+    this.clientService.clientList$.subscribe(c => {
+      console.log(c);
+      this.clients = c;
+      let clientArr = [];
+      c.forEach(client => {
+        this.clients.splice(this.clients.indexOf(client), 1);
+      });
+    });
   }
 
 }

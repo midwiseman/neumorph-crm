@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { debounceTime } from 'rxjs/operators';
+import { HttpClient, HttpClientJsonpModule, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -9,31 +8,22 @@ import { debounceTime } from 'rxjs/operators';
 export class ClientServiceService {
 
   clientList$ = new BehaviorSubject([]);
-  startingClientsNumber = 50;
+  startingClientsNumber = 250;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private jsonp: HttpClientJsonpModule) {
 
-    this.getStartingClientsFromRemote(this.startingClientsNumber);
+    this.getStartingClientsFromRemote(this.startingClientsNumber, 1);
 
   }
 
 
-  getStartingClientsFromRemote(startingClientsNumber) {
+  getStartingClientsFromRemote(startingClientsNumber, pageNo) {
     const headers = new HttpHeaders()
       .set('Cache-Control', 'no-cache')
       .set('dataType', '/json');
-    const clientGetter = this.http.get(`https://randomuser.me/api/?results=${this.startingClientsNumber}&nat=us&seed=69`
-      ,
-      {
-        headers
-      }
-    );
-    const clientArr = this.clientList$.getValue();
-    clientGetter.toPromise().then(async clients => {
-      await clients[`results`].forEach(client => {
-        clientArr.push(client);
-      });
-      this.clientList$.next(clientArr);
+    const urlString = `https://randomuser.me/api/?callback=JSONP_CALLBACK&results=${this.startingClientsNumber}&nat=us&seed=69&${pageNo}`;
+    this.http.jsonp(urlString, 'JSONP_CALLBACK').toPromise().then(r => {
+      this.clientList$.next(r[`results`]);
     });
   }
 

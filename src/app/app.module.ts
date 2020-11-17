@@ -11,7 +11,7 @@ import { UserSettingsComponent } from './components/user-settings/user-settings.
 import icons from '../assets/svg/svg-icons';
 import { SvgIconsModule } from '@ngneat/svg-icon';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -28,6 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    HttpClientJsonpModule,
     SvgIconsModule.forRoot({
       icons
     }),
