@@ -10,7 +10,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let client of clients">
+        <tr *ngFor="let client of currentPage">
           <td>{{ client.name.last }}</td>
           <td>{{ client.name.first }}</td>
           <td>@mdo</td>
@@ -19,3 +19,16 @@
     </table>
   </div>
 </div>
+<button
+  (click)="nextPage(pagedClients.indexOf(currentPage))"
+  [disabled]="pagedClients.indexOf(currentPage) + 1 >= pagedClients.length"
+>
+  Next Page
+</button>
+<button
+  (click)="previousPage(pagedClients.indexOf(currentPage))"
+  [disabled]="pagedClients.indexOf(currentPage) <= 0"
+>
+  Previous Page
+</button>
+<p>Page {{ pagedClients.indexOf(currentPage) + 1 }} of {{ pagedClients.length }}</p>

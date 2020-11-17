@@ -11,7 +11,8 @@ export class ClientsTableComponent implements OnInit {
   clients: any;
   pageStart: 1;
   pagedClients = [];
-  maxItemsPerPage = 20;
+  maxItemsPerPage = 10;
+  currentPage = [];
 
   constructor(private clientService: ClientServiceService) {
 
@@ -21,11 +22,35 @@ export class ClientsTableComponent implements OnInit {
     this.clientService.clientList$.subscribe(c => {
       console.log(c);
       this.clients = c;
-      let clientArr = [];
-      c.forEach(client => {
-        this.clients.splice(this.clients.indexOf(client), 1);
+      let clientsChunk = [];
+      let clientCount = 1;
+      this.clients.forEach(client => {
+        clientCount++;
+        const clientIndex = this.clients.indexOf(client);
+        clientsChunk.push(client);
+        if (clientsChunk.length === this.maxItemsPerPage || clientCount === this.clients.length) {
+          this.pagedClients.push(clientsChunk);
+          clientsChunk = [];
+        }
       });
+      this.setCurrentPage(0);
+      console.log(this.currentPage);
     });
+  }
+
+  setCurrentPage(pageNumber) {
+    this.currentPage = this.pagedClients[`${pageNumber}`];
+    return this.currentPage;
+  }
+
+  nextPage(pageNumber) {
+    this.currentPage = (this.pagedClients[`${pageNumber + 1}`]);
+    return this.currentPage;
+  }
+
+  previousPage(pageNumber) {
+    this.currentPage = (this.pagedClients[`${pageNumber - 1}`]);
+    return this.currentPage;
   }
 
 }

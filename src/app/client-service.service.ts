@@ -12,12 +12,12 @@ export class ClientServiceService {
 
   constructor(private http: HttpClient, private jsonp: HttpClientJsonpModule) {
 
-    this.getStartingClientsFromRemote(this.startingClientsNumber, 1);
+    this.getStartingClientsFromRemote(1);
 
   }
 
 
-  getStartingClientsFromRemote(startingClientsNumber, pageNo) {
+  getStartingClientsFromRemote(pageNo) {
     const headers = new HttpHeaders()
       .set('Cache-Control', 'no-cache')
       .set('dataType', '/json');
