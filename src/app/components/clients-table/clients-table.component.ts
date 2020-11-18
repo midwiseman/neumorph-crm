@@ -25,7 +25,6 @@ export class ClientsTableComponent implements OnInit {
       let clientCount = 1;
       this.clients.forEach(client => {
         clientCount++;
-        const clientIndex = this.clients.indexOf(client);
         clientsChunk.push(client);
         if (clientsChunk.length === this.maxItemsPerPage || clientCount === this.clients.length) {
           this.pagedClients.push(clientsChunk);
@@ -59,7 +58,60 @@ export class ClientsTableComponent implements OnInit {
   }
 
   searchClients(searchText) {
-    console.log(searchText);
+    if (searchText.length === 0) {
+      this.refreshClients();
+    } else {
+      let clientsChunk = [];
+      this.pagedClients = [];
+      let clientCount = 1;
+      this.clients.forEach(client => {
+        clientCount++;
+        // tslint:disable-next-line:forin
+        for (const p in client) {
+          if (typeof client[`${p}`] !== 'string') {
+            for (const np in client[`${p}`]) {
+              if (typeof client[`${p}`][`${np}`] !== 'string') {
+                for (const nnp in client[`${p}`][`${np}`]) {
+                  if (typeof client[`${p}`][`${np}`][`${nnp}`] === 'string') {
+                    if (client[`${p}`][`${np}`][`${nnp}`].toLowerCase().includes(searchText.toLowerCase())) {
+                      clientsChunk.push(client);
+                    }
+                  }
+                }
+              } else {
+                if (client[`${p}`][`${np}`].toLowerCase().includes(searchText.toLowerCase())) {
+                  clientsChunk.push(client);
+                }
+              }
+            }
+          } else {
+            if (client[`${p}`].toLowerCase().includes(searchText.toLowerCase())) {
+              clientsChunk.push(client);
+            }
+          }
+          if (clientsChunk.length === this.maxItemsPerPage || clientCount === this.clients.length) {
+            this.pagedClients.push(clientsChunk);
+            clientsChunk = [];
+          }
+        }
+      });
+      this.setCurrentPage(0);
+    }
+  }
+
+  refreshClients() {
+    this.pagedClients = [];
+    let clientsChunk = [];
+    let clientCount = 1;
+    this.clients.forEach(client => {
+      clientCount++;
+      clientsChunk.push(client);
+      if (clientsChunk.length === this.maxItemsPerPage || clientCount === this.clients.length) {
+        this.pagedClients.push(clientsChunk);
+        clientsChunk = [];
+      }
+    });
+    this.setCurrentPage(0);
   }
 
 }

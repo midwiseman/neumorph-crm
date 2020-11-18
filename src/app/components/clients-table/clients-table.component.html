@@ -5,7 +5,7 @@
     <div class="panel-heading">Search</div>
     <div class="panel-body">
       <form>
-        <input type="text" (change)="searchClients($event.target.value)">
+        <input type="text" (keyup)="searchClients($event.target.value)">
       </form>
     </div>
     <div class="table-responsive">
