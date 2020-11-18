@@ -20,7 +20,6 @@ export class ClientsTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.clientService.clientList$.subscribe(c => {
-      console.log(c);
       this.clients = c;
       let clientsChunk = [];
       let clientCount = 1;
@@ -34,23 +33,33 @@ export class ClientsTableComponent implements OnInit {
         }
       });
       this.setCurrentPage(0);
-      console.log(this.currentPage);
     });
   }
 
   setCurrentPage(pageNumber) {
     this.currentPage = this.pagedClients[`${pageNumber}`];
-    return this.currentPage;
   }
 
   nextPage(pageNumber) {
     this.currentPage = (this.pagedClients[`${pageNumber + 1}`]);
-    return this.currentPage;
   }
 
   previousPage(pageNumber) {
     this.currentPage = (this.pagedClients[`${pageNumber - 1}`]);
-    return this.currentPage;
+  }
+
+  firstPage() {
+    const firstPage = this.pagedClients[0];
+    this.currentPage = firstPage;
+  }
+
+  lastPage() {
+    const lastPage = this.pagedClients[`${this.pagedClients.length - 1}`];
+    this.currentPage = lastPage;
+  }
+
+  searchClients(searchText) {
+    console.log(searchText);
   }
 
 }

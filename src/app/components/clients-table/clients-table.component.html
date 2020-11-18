@@ -1,34 +1,74 @@
 <div class="container-fluid">
   <h1>My Clients</h1>
-  <div class="table-responsive">
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Last</th>
-          <th scope="col">First</th>
-          <th scope="col">Handle</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let client of currentPage">
-          <td>{{ client.name.last }}</td>
-          <td>{{ client.name.first }}</td>
-          <td>@mdo</td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Search</div>
+    <div class="panel-body">
+      <form>
+        <input type="text" (change)="searchClients($event.target.value)">
+      </form>
+    </div>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Last</th>
+            <th scope="col">First</th>
+            <th scope="col">Handle</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let client of currentPage">
+            <td>{{ client.name.last }}</td>
+            <td>{{ client.name.first }}</td>
+            <td>@mdo</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row clearfix">
+    <div class="col-12 nav">
+      <button
+        class="btn neumorphic-btn"
+        (click)="firstPage()"
+        [disabled]="pagedClients.indexOf(currentPage) <= 0"
+      >
+        <svg-icon key="rewind"></svg-icon>
+      </button>
+      <button
+        class="btn neumorphic-btn"
+        (click)="previousPage(pagedClients.indexOf(currentPage))"
+        [disabled]="pagedClients.indexOf(currentPage) <= 0"
+      >
+        <svg-icon key="leftArrow"></svg-icon>
+      </button>
+      <button
+        class="btn neumorphic-btn"
+        (click)="nextPage(pagedClients.indexOf(currentPage))"
+        [disabled]="
+          pagedClients.indexOf(currentPage) + 1 >= pagedClients.length
+        "
+      >
+        <svg-icon key="rightArrow"></svg-icon>
+      </button>
+      <button
+        class="btn neumorphic-btn"
+        (click)="lastPage()"
+        [disabled]="
+          pagedClients.indexOf(currentPage) + 1 >= pagedClients.length
+        "
+      >
+        <svg-icon key="fastForward"></svg-icon>
+      </button>
+    </div>
+  </div>
+
+  <div class="row clearfix">
+    <div class="col-12 nav">
+      <p class="mt-5">
+        {{ pagedClients.indexOf(currentPage) + 1 }} of {{ pagedClients.length }}
+      </p>
+    </div>
   </div>
 </div>
-<button
-  (click)="nextPage(pagedClients.indexOf(currentPage))"
-  [disabled]="pagedClients.indexOf(currentPage) + 1 >= pagedClients.length"
->
-  Next Page
-</button>
-<button
-  (click)="previousPage(pagedClients.indexOf(currentPage))"
-  [disabled]="pagedClients.indexOf(currentPage) <= 0"
->
-  Previous Page
-</button>
-<p>Page {{ pagedClients.indexOf(currentPage) + 1 }} of {{ pagedClients.length }}</p>
