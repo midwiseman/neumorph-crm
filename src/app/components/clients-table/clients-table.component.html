@@ -1,14 +1,13 @@
 <div class="container-fluid">
-  <h1>My Clients</h1>
   <div class="panel panel-default">
     <!-- Default panel contents -->
-    <div class="panel-heading">Search</div>
+    <div class="panel-heading">Search Clients</div>
     <div class="panel-body">
       <form>
-        <input type="text" (keyup)="searchClients($event.target.value)">
+        <input type="text" (keyup)="searchClients($event.target.value)" />
       </form>
     </div>
-    <div class="table-responsive">
+    <div class="table-responsive sticky-header">
       <table class="table">
         <thead>
           <tr>
@@ -21,12 +20,14 @@
           <tr *ngFor="let client of currentPage">
             <td>{{ client.name.last }}</td>
             <td>{{ client.name.first }}</td>
-            <td>@mdo</td>
+            <td>{{ client.location.city }}, {{ client.location.state }}</td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
+</div>
+<div class="container-fluid" style="position: fixed; bottom: 0 ">
   <div class="row clearfix">
     <div class="col-12 nav">
       <button
@@ -63,10 +64,9 @@
       </button>
     </div>
   </div>
-
   <div class="row clearfix">
     <div class="col-12 nav">
-      <p class="mt-5">
+      <p class="mt-2">
         {{ pagedClients.indexOf(currentPage) + 1 }} of {{ pagedClients.length }}
       </p>
     </div>
