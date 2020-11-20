@@ -1,29 +1,33 @@
 <div class="container-fluid">
-  <div class="panel panel-default">
-    <!-- Default panel contents -->
-    <div class="panel-heading">Search Clients</div>
-    <div class="panel-body">
-      <form>
-        <input type="text" (keyup)="searchClients($event.target.value)" />
-      </form>
-    </div>
-    <div class="table-responsive sticky-header">
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Last</th>
-            <th scope="col">First</th>
-            <th scope="col">Handle</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let client of currentPage">
-            <td>{{ client.name.last }}</td>
-            <td>{{ client.name.first }}</td>
-            <td>{{ client.location.city }}, {{ client.location.state }}</td>
-          </tr>
-        </tbody>
-      </table>
+  <div class="row clearfix">
+    <div class="panel panel-default w-100">
+      <!-- Default panel contents -->
+      <div class="panel-heading">Search Leads</div>
+      <div class="panel-body">
+        <form>
+          <input type="text" (keyup)="searchClients($event.target.value)" />
+        </form>
+      </div>
+      <div class="table-responsive sticky-header">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Last</th>
+              <th scope="col">First</th>
+              <th scope="col">City</th>
+              <th scope="col">Disposition</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let client of currentPage">
+              <td>{{ client.name.last }}</td>
+              <td>{{ client.name.first }}</td>
+              <td>{{ client.location.city }}, {{ client.location.state }}</td>
+              <td>{{ client.disposition }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>

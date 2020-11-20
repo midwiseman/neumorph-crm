@@ -11,7 +11,7 @@ export class ClientsTableComponent implements OnInit {
   clients: any;
   pageStart: 1;
   pagedClients = [];
-  maxItemsPerPage = 10;
+  maxItemsPerPage = 15;
   currentPage = [];
 
   constructor(private clientService: ClientServiceService) {
@@ -20,6 +20,7 @@ export class ClientsTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.clientService.clientList$.subscribe(c => {
+      console.log(c);
       this.clients = c;
       let clientsChunk = [];
       let clientCount = 1;
