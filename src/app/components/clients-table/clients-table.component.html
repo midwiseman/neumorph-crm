@@ -1,32 +1,39 @@
-<div class="container-fluid">
+<div class="container-fluid" style="overflow-y: hidden;">
   <div class="row clearfix">
-    <div class="panel panel-default w-100">
-      <!-- Default panel contents -->
-      <div class="panel-heading">Search Leads</div>
-      <div class="panel-body">
-        <form>
-          <input type="text" (keyup)="searchClients($event.target.value)" />
-        </form>
-      </div>
-      <div class="table-responsive sticky-header">
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">Last</th>
-              <th scope="col">First</th>
-              <th scope="col">City</th>
-              <th scope="col">Disposition</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let client of currentPage">
-              <td>{{ client.name.last }}</td>
-              <td>{{ client.name.first }}</td>
-              <td>{{ client.location.city }}, {{ client.location.state }}</td>
-              <td>{{ client.disposition }}</td>
-            </tr>
-          </tbody>
-        </table>
+    <div class="flex-grow-1">
+      <div class="panel panel-default w-100 mx-5">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Search Leads</div>
+        <div class="panel-body">
+          <form>
+            <input type="text" (keyup)="searchClients($event.target.value)" />
+          </form>
+        </div>
+        <div class="table-responsive sticky-header">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Last</th>
+                <th scope="col">First</th>
+                <th scope="col">City</th>
+                <th scope="col">Disposition</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                (click)="setClient(client)"
+                *ngFor="let client of currentPage"
+              >
+                <td>
+                  {{ client.name.last }}
+                </td>
+                <td>{{ client.name.first }}</td>
+                <td>{{ client.location.city }}, {{ client.location.state }}</td>
+                <td>{{ client.disposition }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
@@ -75,4 +82,9 @@
       </p>
     </div>
   </div>
+</div>
+
+<div [@slideInOut]="clientSelected" class="row clearfix">
+  Cancel
+  {{ selectedClient | json }}
 </div>

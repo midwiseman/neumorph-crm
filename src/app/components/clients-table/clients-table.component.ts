@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientServiceService } from 'src/app/client-service.service';
+import { SlideInOutAnimation } from '../animation';
 
 @Component({
   selector: 'app-clients-table',
   templateUrl: './clients-table.component.html',
-  styleUrls: ['./clients-table.component.scss']
+  styleUrls: ['./clients-table.component.scss'],
+  animations: [ SlideInOutAnimation ],
 })
 export class ClientsTableComponent implements OnInit {
 
@@ -13,12 +15,18 @@ export class ClientsTableComponent implements OnInit {
   pagedClients = [];
   maxItemsPerPage = 15;
   currentPage = [];
+  selectedClient: any;
+  clientSelected: string;
 
   constructor(private clientService: ClientServiceService) {
 
   }
 
+
+
   ngOnInit(): void {
+    this.clientSelected = 'out';
+    this.selectedClient = undefined;
     this.clientService.clientList$.subscribe(c => {
       console.log(c);
       this.clients = c;
@@ -113,6 +121,11 @@ export class ClientsTableComponent implements OnInit {
       }
     });
     this.setCurrentPage(0);
+  }
+
+  setClient(client) {
+    this.selectedClient = client;
+    this.clientSelected = this.clientSelected === 'out' ? 'in' : 'out';
   }
 
 }

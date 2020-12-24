@@ -12,6 +12,8 @@ import icons from '../assets/svg/svg-icons';
 import { SvgIconsModule } from '@ngneat/svg-icon';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
+import { ClientModalComponent } from './components/client-modal/client-modal.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -21,10 +23,12 @@ import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
     SideBarComponent,
     ClientsTableComponent,
     DashboardComponent,
-    UserSettingsComponent
+    UserSettingsComponent,
+    ClientModalComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
