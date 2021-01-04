@@ -121,8 +121,13 @@
               "devServerTarget": "neumorph-crm:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {}
         }
       }
-    }},
+    }
+  },
   "defaultProject": "neumorph-crm"
 }
