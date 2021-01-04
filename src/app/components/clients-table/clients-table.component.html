@@ -1,13 +1,18 @@
-<div class="container-fluid" style="overflow-y: hidden;">
+<div
+  class="container-fluid"
+  *ngIf="selectedClient === undefined"
+  style="overflow-y: hidden;"
+>
   <div class="row clearfix">
     <div class="flex-grow-1">
       <div class="panel panel-default w-100 mx-5">
         <!-- Default panel contents -->
         <div class="panel-heading">Search Leads</div>
         <div class="panel-body">
-          <form>
+          <form class="d-inline">
             <input type="text" (keyup)="searchClients($event.target.value)" />
           </form>
+          <button class="d-inline ml-5" (click)="setClient(createNewClient())">Add Client</button>
         </div>
         <div class="table-responsive sticky-header">
           <table class="table">
@@ -84,7 +89,8 @@
   </div>
 </div>
 
-<div [@slideInOut]="clientSelected" class="row clearfix">
-  Cancel
+<div *ngIf="selectedClient !== undefined" class="row clearfix">
+  <button (click)="cancelEditClient()">Cancel</button>
+  <button (click)="deleteClient(selectedClient)">Delete</button>
   {{ selectedClient | json }}
 </div>

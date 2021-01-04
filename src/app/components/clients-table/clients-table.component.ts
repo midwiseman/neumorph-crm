@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientServiceService } from 'src/app/client-service.service';
-import { SlideInOutAnimation } from '../animation';
 
 @Component({
   selector: 'app-clients-table',
   templateUrl: './clients-table.component.html',
-  styleUrls: ['./clients-table.component.scss'],
-  animations: [ SlideInOutAnimation ],
+  styleUrls: ['./clients-table.component.scss']
 })
 export class ClientsTableComponent implements OnInit {
 
@@ -16,7 +14,6 @@ export class ClientsTableComponent implements OnInit {
   maxItemsPerPage = 15;
   currentPage = [];
   selectedClient: any;
-  clientSelected: string;
 
   constructor(private clientService: ClientServiceService) {
 
@@ -25,23 +22,26 @@ export class ClientsTableComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.clientSelected = 'out';
     this.selectedClient = undefined;
     this.clientService.clientList$.subscribe(c => {
-      console.log(c);
       this.clients = c;
-      let clientsChunk = [];
-      let clientCount = 1;
-      this.clients.forEach(client => {
-        clientCount++;
-        clientsChunk.push(client);
-        if (clientsChunk.length === this.maxItemsPerPage || clientCount === this.clients.length) {
-          this.pagedClients.push(clientsChunk);
-          clientsChunk = [];
-        }
-      });
-      this.setCurrentPage(0);
+      this.pageClients();
     });
+  }
+
+  // Rebuilds Client Pages after deletion, addition, or OnInit
+  pageClients() {
+    let clientsChunk = [];
+    let clientCount = 1;
+    this.clients.forEach(client => {
+      clientCount++;
+      clientsChunk.push(client);
+      if (clientsChunk.length === this.maxItemsPerPage || clientCount === this.clients.length) {
+        this.pagedClients.push(clientsChunk);
+        clientsChunk = [];
+      }
+    });
+    this.setCurrentPage(0);
   }
 
   setCurrentPage(pageNumber) {
@@ -125,7 +125,23 @@ export class ClientsTableComponent implements OnInit {
 
   setClient(client) {
     this.selectedClient = client;
-    this.clientSelected = this.clientSelected === 'out' ? 'in' : 'out';
+  }
+
+  createNewClient() {
+    const newClient = { gender: 'unknown', name: 'unknown' };
+    return newClient;
+  }
+
+  cancelEditClient() {
+    this.selectedClient = undefined;
+  }
+
+  deleteClient(client) {
+    const i = this.clients.indexOf(client);
+    console.log(i);
+    this.clients.splice(i, 1);
+    this.selectedClient = undefined;
+    this.pageClients();
   }
 
 }
