@@ -12,7 +12,9 @@
           <form class="d-inline">
             <input type="text" (keyup)="searchClients($event.target.value)" />
           </form>
-          <button class="d-inline ml-5" (click)="setClient(createNewClient())">Add Client</button>
+          <button class="d-inline ml-5" (click)="setClient(createNewClient())">
+            Add Client
+          </button>
         </div>
         <div class="table-responsive sticky-header">
           <table class="table">
@@ -89,9 +91,17 @@
   </div>
 </div>
 
-<div *ngIf="selectedClient !== undefined" class="row clearfix">
+<div *ngIf="selectedClient !== undefined">
   <button (click)="cancelEditClient()">Cancel</button>
   <button (click)="deleteClient(selectedClient)">Delete</button>
   <button (click)="addClient(selectedClient)">Add Client</button>
+  <form [formGroup]="clientNameForm">
+    <div *ngFor="let props of clientNameForm.controls | keyvalue">
+      <label for="props.key">{{
+        props.key.charAt(0).toUpperCase() + props.key.slice(1)
+      }}</label>
+      <input type="text" name="props.key" [formControlName]="props.key" />
+    </div>
+  </form>
   {{ selectedClient | json }}
 </div>

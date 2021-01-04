@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ClientServiceService } from 'src/app/client-service.service';
 
 @Component({
@@ -14,19 +15,30 @@ export class ClientsTableComponent implements OnInit {
   maxItemsPerPage = 15;
   currentPage = [];
   selectedClient: any;
+  clientNameForm: FormGroup;
+  clientGenderForm: FormGroup;
+  clientLocationForm: FormGroup;
 
-  constructor(private clientService: ClientServiceService) {
-
-  }
-
-
-
-  ngOnInit(): void {
+  constructor(private clientService: ClientServiceService, private fb: FormBuilder) {
     this.selectedClient = undefined;
     this.clientService.clientList$.subscribe(c => {
       this.clients = c;
       this.pageClients();
     });
+  }
+
+
+
+  ngOnInit(): void {
+  }
+
+  buildForms() {
+    const name = this.selectedClient.name;
+    this.clientNameForm = this.fb.group({
+      first: [name ? name.first : ''],
+      last: [name ? name.last : ''],
+    });
+    console.log(this.clientNameForm.value);
   }
 
   // Rebuilds Client Pages after deletion, addition, or OnInit
@@ -127,6 +139,7 @@ export class ClientsTableComponent implements OnInit {
 
   setClient(client) {
     this.selectedClient = client;
+    this.buildForms();
   }
 
   createNewClient() {
