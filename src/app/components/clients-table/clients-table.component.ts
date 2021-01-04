@@ -31,8 +31,10 @@ export class ClientsTableComponent implements OnInit {
 
   // Rebuilds Client Pages after deletion, addition, or OnInit
   pageClients() {
+    this.pagedClients = [];
     let clientsChunk = [];
     let clientCount = 1;
+    console.log(this.clients);
     this.clients.forEach(client => {
       clientCount++;
       clientsChunk.push(client);
@@ -138,8 +140,13 @@ export class ClientsTableComponent implements OnInit {
 
   deleteClient(client) {
     const i = this.clients.indexOf(client);
-    console.log(i);
     this.clients.splice(i, 1);
+    this.selectedClient = undefined;
+    this.pageClients();
+  }
+
+  addClient(client) {
+    this.clients.splice(0, 0, client);
     this.selectedClient = undefined;
     this.pageClients();
   }

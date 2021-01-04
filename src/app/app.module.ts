@@ -13,7 +13,7 @@ import { SvgIconsModule } from '@ngneat/svg-icon';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { ClientModalComponent } from './components/client-modal/client-modal.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -28,7 +28,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,

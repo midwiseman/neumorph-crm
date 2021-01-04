@@ -92,5 +92,6 @@
 <div *ngIf="selectedClient !== undefined" class="row clearfix">
   <button (click)="cancelEditClient()">Cancel</button>
   <button (click)="deleteClient(selectedClient)">Delete</button>
+  <button (click)="addClient(selectedClient)">Add Client</button>
   {{ selectedClient | json }}
 </div>
