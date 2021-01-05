@@ -30,11 +30,13 @@ Show/hide one or more content areas or elements on your site through clicking a 
 
 Below are instructions for running this project:
 
-(Simple Version):
+# Simple Install/Run
+
+Ensure NPM and NodeJs is installed: https://nodejs.org/en/
 
 Install Angular by running: npm install -g @angular/cli
 
-Run: `ng serve -o` and a browser window will automatically open the project once it's done building.
+Run: `ng serve -o` from the project folder. Subsequently a browser window will automatically open the project once it's done building.
 
 # RudeCrm
 
