@@ -30,6 +30,10 @@ Show/hide one or more content areas or elements on your site through clicking a 
 
 Below are instructions for running this project:
 
+# Simplest
+
+This project is hosted on `https://midwiseman.github.io/rude-crm/`
+
 # Simple Install/Run
 
 Ensure NPM and NodeJs is installed: https://nodejs.org/en/
