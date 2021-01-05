@@ -1,1 +1,37 @@
-<p>dashboard works!</p>
+<div class="container text-center">
+  <div class="row">
+    <div class="col-6 offset-3">
+      <h3>Your Performance</h3>
+    </div>
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col-6 offset-3">
+      <h4>Total Clients: {{ clientsLength }}</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6 offset-3">
+      <h4>
+        Active Clients: {{ clientsActive.length / clientsLength | percent }}
+        <small class="ml-4"> (Count: {{ clientsActive.length }} )</small>
+      </h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6 offset-3">
+      <h4>
+        Sold Clients: {{ clientsSold.length / clientsLength | percent }}
+        <small class="ml-4"> (Count: {{ clientsSold.length }} )</small>
+      </h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6 offset-3">
+      <h4>
+        Lost Clients: {{ clientsLost.length / clientsLength | percent }}
+        <small class="ml-4"> (Count: {{ clientsLost.length }} )</small>
+      </h4>
+    </div>
+  </div>
+</div>

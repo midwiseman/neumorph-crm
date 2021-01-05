@@ -16,8 +16,10 @@ export class ClientsTableComponent implements OnInit {
   currentPage = [];
   selectedClient: any;
   clientNameForm: FormGroup;
-  clientGenderForm: FormGroup;
   clientLocationForm: FormGroup;
+  clientDispositionForm: FormGroup;
+  pendingChanges: object = { name: {}, location: {}, disposition: '' };
+  hasPendingChanges: boolean;
 
   constructor(private clientService: ClientServiceService, private fb: FormBuilder) {
     this.selectedClient = undefined;
@@ -34,11 +36,41 @@ export class ClientsTableComponent implements OnInit {
 
   buildForms() {
     const name = this.selectedClient.name;
+    const location = this.selectedClient.location;
+    const dis = this.selectedClient.disposition;
     this.clientNameForm = this.fb.group({
       first: [name ? name.first : ''],
       last: [name ? name.last : ''],
     });
-    console.log(this.clientNameForm.value);
+    this.clientLocationForm = this.fb.group({
+      city: [location ? location.city : ''],
+      state: [location ? location.state : '']
+    });
+    this.clientDispositionForm = this.fb.group({
+      disposition: [dis ? dis : '']
+    });
+    console.log(this.clientDispositionForm);
+    this.clientNameForm.controls.first.valueChanges.subscribe(changes => {
+      this.hasPendingChanges = true;
+      this.pendingChanges[`name`][`first`] = changes;
+    });
+    this.clientNameForm.controls.last.valueChanges.subscribe(changes => {
+      this.hasPendingChanges = true;
+      this.pendingChanges[`name`][`last`] = changes;
+    });
+    this.clientLocationForm.controls.city.valueChanges.subscribe(changes => {
+      this.hasPendingChanges = true;
+      this.pendingChanges[`location`][`city`] = changes;
+    });
+    this.clientLocationForm.controls.state.valueChanges.subscribe(changes => {
+      this.hasPendingChanges = true;
+      this.pendingChanges[`location`][`state`] = changes;
+    });
+    this.clientDispositionForm.valueChanges.subscribe(changes => {
+      this.hasPendingChanges = true;
+      this.pendingChanges[`disposition`] = changes[`disposition`];
+    });
+    console.log(this.clientLocationForm.controls);
   }
 
   // Rebuilds Client Pages after deletion, addition, or OnInit
@@ -143,25 +175,58 @@ export class ClientsTableComponent implements OnInit {
   }
 
   createNewClient() {
-    const newClient = { gender: 'unknown', name: 'unknown' };
+    const newClient = {};
     return newClient;
   }
 
   cancelEditClient() {
+    this.pendingChanges = { name: {}, location: {}, disposition: '' };
+    this.hasPendingChanges = false;
     this.selectedClient = undefined;
   }
 
   deleteClient(client) {
     const i = this.clients.indexOf(client);
     this.clients.splice(i, 1);
+    this.clientService.clientList$.next(this.clients);
     this.selectedClient = undefined;
-    this.pageClients();
   }
 
   addClient(client) {
+    const d = new Date();
+    this.selectedClient[`id`] = this.getRandomId(d);
+    console.log(this.selectedClient[`id`]);
+    this.selectedClient.name = this.pendingChanges[`name`];
+    this.selectedClient.location = this.pendingChanges[`location`];
+    this.selectedClient.disposition = this.pendingChanges[`disposition`];
+    this.pendingChanges = { name: {}, location: {}, disposition: '' };
+    this.hasPendingChanges = false;
     this.clients.splice(0, 0, client);
+    this.clientService.clientList$.next(this.clients);
     this.selectedClient = undefined;
-    this.pageClients();
+  }
+
+  saveClient() {
+    const i = this.clients.indexOf(this.selectedClient);
+    console.log(this.pendingChanges[`disposition`]);
+    const f = this.pendingChanges[`name`][`first`] ? this.pendingChanges[`name`][`first`] : this.selectedClient.name.first;
+    const l = this.pendingChanges[`name`][`last`] ? this.pendingChanges[`name`][`last`] : this.selectedClient.name.last;
+    const c = this.pendingChanges[`location`][`city`] ? this.pendingChanges[`location`][`city`] : this.selectedClient.location.city;
+    const s = this.pendingChanges[`location`][`state`] ? this.pendingChanges[`location`][`state`] : this.selectedClient.location.state;
+    const d = this.pendingChanges[`disposition`] !== '' ? this.pendingChanges[`disposition`] : this.selectedClient.disposition;
+    this.selectedClient.name.first = f;
+    this.selectedClient.name.last = l;
+    this.selectedClient.location.city = c;
+    this.selectedClient.location.state = s;
+    this.selectedClient.disposition = d;
+    this.clients[`${i}`] = this.selectedClient;
+    this.clientService.clientList$.next(this.clients);
+    this.pendingChanges = { name: {}, location: {}, disposition: '' };
+    this.selectedClient = undefined;
+  }
+
+  getRandomId(time) {
+    return Math.floor(Math.random() * Math.floor(time));
   }
 
 }

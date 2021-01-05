@@ -25,8 +25,12 @@ export class ClientServiceService {
     this.http.jsonp(urlString, 'JSONP_CALLBACK').toPromise().then(r => {
       const clients = r[`results`];
       clients.forEach(client => {
-        client[`disposition`] = this.getRandomDisposition(this.getRandomInt(3));
-        client[`location`][`state`] = this.abbrRegion(client[`location`][`state`], 'abbr');
+        if (!client[`disposition`]) {
+          client[`disposition`] = this.getRandomDisposition(this.getRandomInt(3));
+        }
+        if (client[`location`][`state`]) {
+          client[`location`][`state`] = this.abbrRegion(client[`location`][`state`], 'abbr');
+        }
       });
       this.clientList$.next(r[`results`]);
     });
