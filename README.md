@@ -30,9 +30,17 @@ Show/hide one or more content areas or elements on your site through clicking a 
 
 Below are instructions for running this project:
 
+(Simple Version):
+
+Install Angular by running: npm install -g @angular/cli
+
+Run: `ng serve -o` and a browser window will automatically open the project once it's done building.
+
 # RudeCrm
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.2.
+
+Install Angular by running: npm install -g @angular/cli
 
 ## Development server
 
