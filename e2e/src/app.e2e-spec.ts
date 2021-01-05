@@ -10,7 +10,7 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('neumorph-crm app is running!');
+    expect(page.getTitleText()).toEqual('rude-crm app is running!');
   });
 
   afterEach(async () => {
