@@ -6,16 +6,23 @@ From the Code Louisville Project Requirements, I did the following tasks:
 
 CSS Features List
 A navigation menu that expands and collapses properly at desktop and mobile sizes, such as by switching between vertical and horizontal, or is opened by clicking the “hamburger” menu item
+
 Use Flexbox or CSS Grid to organize content areas based on mobile or desktop views. For example, swapping from a single column layout to a two-column layout on desktop
+
 Import Bootstrap from a CDN, then use Bootstrap’s column system to organize content areas based on mobile or desktop views (cannot be used on the same page as the Flexbox/CSS Grid requirement above). Note: Bootstrap is an optional Treehouse video
 Use “:nth-child” or “nth-of-type” to style a series of elements on your page - for example, change the background color for every other row in a table 
 
 JavaScript Features List
 Create a form (such as a ‘Contact Us’ form), validate at least 1 input (example, ensure email is in the proper format), and then use that information on your page somehow (ex: display it back to the user, or change a setting on the page based on a section)
+
 Create a JavaScript function that performs some form of mathematical operation and displays the result on your page
+
 Create and populate a JavaScript array with one or more values and display the contents on your page
+
 Create a Javascript loop that dynamically displays HTML on your page - for example adding a new row to a table, based on a value passed to the loop
+
 Create at least 3 variables, set their values in JavaScript, and display the values somewhere on your page
+
 Create one or more JavaScript objects (such as with multiple values contained in { }’s), modify at least one value of that object, and display it on your site
 Show/hide one or more content areas or elements on your site through clicking a button or some other user interaction
 
